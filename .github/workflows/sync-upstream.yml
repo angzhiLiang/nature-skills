@@ -1,0 +1,32 @@
+name: sync-upstream
+on:
+  schedule:
+    - cron: "23 4 * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sync from upstream
+        run: |
+          git config user.name sync-bot
+          git config user.email angzhiLiang@users.noreply.github.com
+          git remote add upstream https://github.com/Yuan1z0825/nature-skills.git
+          git fetch upstream main
+          rm -rf skills
+          mkdir -p skills
+          git checkout upstream/main -- skills/nature-academic-search
+          git checkout upstream/main -- skills/nature-citation
+          git checkout upstream/main -- skills/nature-data
+          git checkout upstream/main -- skills/nature-figure
+          git checkout upstream/main -- skills/nature-paper2ppt
+          git checkout upstream/main -- skills/nature-polishing
+          git checkout upstream/main -- skills/nature-reader
+          git checkout upstream/main -- skills/nature-response
+          git checkout upstream/main -- skills/nature-writing
+          git checkout upstream/main -- skills/nature-shared
+          git add -A
+          git diff --cached --quiet || { git commit -m "sync upstream $(git rev-parse --short upstream/main)"; git push; }

@@ -1,0 +1,6 @@
+{
+  "name": "nature-skills",
+  "description": "Curated mirror of Yuan1z0825/nature-skills: 9 skills + nature-shared",
+  "owner": {"name": "angzhiLiang", "url": "https://github.com/angzhiLiang"},
+  "plugins": [{"name": "nature-skills", "description": "Nature-family academic writing skills", "source": "./"}]
+}
